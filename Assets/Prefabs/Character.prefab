@@ -96,6 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2872342517349339599}
   - component: {fileID: 4009159502004955100}
+  - component: {fileID: 7356456898152823341}
   - component: {fileID: 2278512422275651948}
   m_Layer: 6
   m_Name: Character
@@ -195,6 +196,35 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_speedText: {fileID: 0}
   m_ring: {fileID: 755873056053325781, guid: fd38498234a20aa47a509adb35b8e4c2, type: 3}
+  m_animator: {fileID: 7356456898152823341}
+  dangerZoneMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  interactMask:
+    serializedVersion: 2
+    m_Bits: 512
+--- !u!95 &7356456898152823341
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7982704575160770436}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c2eac0ad605c2ac4fba83adfcee130c6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!50 &2278512422275651948
 Rigidbody2D:
   serializedVersion: 4

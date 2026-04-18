@@ -118,7 +118,7 @@ public class ECG : MonoBehaviour
             }
             else m_currentTrail.transform.localPosition = new Vector3(x, y);
         }
-
+        
         m_bpmRefreshTime += Time.fixedDeltaTime;
         if (m_bpmRefreshTime >= m_bpmRefreshCD)
         {
@@ -133,6 +133,7 @@ public class ECG : MonoBehaviour
     
     private void BipReceived()
     {
+        if (GameManager.dead) return;
         m_bipReceived = true;
     }
 
@@ -142,6 +143,7 @@ public class ECG : MonoBehaviour
         ++totalBit;
         float dist = m_speed * 60f / m_helperBPM;
         m_helper.localPosition = new Vector3((m_currentTrail.transform.localPosition.x + dist) % m_boxLength, 0f);
+        m_helper.gameObject.SetActive(true);
         
         m_bipReceived = false;
         m_bipTimer = 0f;

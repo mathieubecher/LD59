@@ -39,17 +39,16 @@ public class Nurse : MonoBehaviour
     private void OnEnable()
     {
         m_detect.OnCharacterSpotted += Spotted;
-        m_detect.OnCharacterLost += Lost;
     }
 
     private void OnDisable()
     {
         m_detect.OnCharacterSpotted -= Spotted;
-        m_detect.OnCharacterLost -= Lost;
     }
 
     void FixedUpdate()
     {
+        if (GameManager.dead) return;
         if (m_stop) return;
         FollowPoint();
     }
@@ -58,11 +57,6 @@ public class Nurse : MonoBehaviour
     {
         Vector3 target = m_points[m_currentIndex];
         float speed = m_defaultSpeed;
-        /*if (m_detect.character)
-        {
-            target = m_detect.character.transform.position;
-            speed = m_pursueSpeed;
-        }*/
         if (m_detectSignal)
         {
             target = m_signalPos;
@@ -140,23 +134,15 @@ public class Nurse : MonoBehaviour
     private void Spotted()
     {
         m_stop = true;
+        m_rigidbody.velocity = Vector2.zero;
         float direction = (m_detect.character.transform.position - transform.position).x;
         Vector3 scale = m_sprite.transform.localScale;
         m_sprite.transform.localScale = new Vector3(math.abs(scale.x) * math.sign(direction), scale.y, scale.z);
-        StartCoroutine(Wait());
-    }
-
-    private void Lost()
-    {
-        m_stop = true;
-        float direction = (m_points[m_currentIndex] - transform.position).x;
-        Vector3 scale = m_sprite.transform.localScale;
-        m_sprite.transform.localScale = new Vector3(math.abs(scale.x) * math.sign(direction), scale.y, scale.z);
-        StartCoroutine(Wait());
     }
 
     private IEnumerator Wait()
     {
+        m_rigidbody.velocity = Vector2.zero;
         yield return new WaitForSeconds(1f);
         m_stop = false;
     }

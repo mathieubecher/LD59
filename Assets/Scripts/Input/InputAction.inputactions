@@ -6,6 +6,15 @@
             "id": "45aaa0ac-1f1c-4c47-a11d-e0f1bc9b1512",
             "actions": [
                 {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "dafa2693-08ff-4849-86de-dea1de580caa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Bip",
                     "type": "Button",
                     "id": "154899fc-14c7-4449-999e-7412fbfd1176",
@@ -112,6 +121,17 @@
                     "action": "move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "249e8ff6-7d66-4150-bfb4-1155e69a7dec",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

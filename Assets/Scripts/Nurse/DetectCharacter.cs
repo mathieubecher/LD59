@@ -8,7 +8,6 @@ public class DetectCharacter : MonoBehaviour
 {
     public delegate void SimpleEvent();
     public event SimpleEvent OnCharacterSpotted;
-    public event SimpleEvent OnCharacterLost;
     public Character character => m_detect ? m_character : null;
     
     [SerializeField] private float m_lostDistance = 5f;
@@ -18,10 +17,15 @@ public class DetectCharacter : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if (m_character && !m_detect)
+        if (GameManager.dead) return;
+        if (m_character && !m_character.hidden && !m_detect)
         {
             m_detect = Math.Abs(math.sign((m_character.transform.position - transform.position).x) - math.sign(transform.lossyScale.x)) < 0.1f;
-            if(m_detect) OnCharacterSpotted?.Invoke();
+            if(m_detect)
+            {
+                OnCharacterSpotted?.Invoke();
+                m_character.Spotted();
+            }
         }
         if (m_detect)
         {
@@ -29,7 +33,6 @@ public class DetectCharacter : MonoBehaviour
             {
                 m_character = null;
                 m_detect = false;
-                OnCharacterLost?.Invoke();
             }
         }
     }
