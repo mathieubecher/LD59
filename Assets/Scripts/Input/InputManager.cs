@@ -20,14 +20,11 @@ public class InputManager : MonoBehaviour
         }
     }
     public static Vector2 move => instance.m_move;
-    public static Vector2 move2D => instance.m_move2D;
     public static Vector2 lastValidMove => instance.m_lastValidMove;
     #endregion
     
-    private PlayerInput m_playerInput;
     [SerializeField] private AnimationCurve m_deadzone;
     private Vector2 m_move;
-    private Vector2 m_move2D;
     private Vector2 m_lastValidMove;
     
     public delegate void SimpleEvent();
@@ -38,16 +35,12 @@ public class InputManager : MonoBehaviour
     
     private void Awake()
     {
-        m_playerInput = GetComponent<PlayerInput>();
         m_lastValidMove = Vector2.right;
     }
     
     public void ReadMoveInput(InputAction.CallbackContext _context)
     {
         Vector2 input = _context.ReadValue<Vector2>();
-        float tilt = input.magnitude;
-        m_move2D = input.normalized * m_deadzone.Evaluate(tilt);
-        
         float x = m_deadzone.Evaluate(input.x);
         float y = m_deadzone.Evaluate(input.y);
         if (math.abs(x) <= 0.01f) x = 0f;
