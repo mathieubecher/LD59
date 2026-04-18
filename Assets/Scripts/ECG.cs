@@ -94,7 +94,7 @@ public class ECG : MonoBehaviour
             Bip();
         }
 
-        if (m_history.Count > 0 && Time.time - m_history[^1] > 2) m_history.Clear();
+        if (m_history.Count > 0 && Time.time - m_history[^1] > 3f) m_history.Clear();
         
         float delta = Time.fixedDeltaTime / m_frequency;
         for (int i = 0; i < m_frequency; ++i)
@@ -123,7 +123,7 @@ public class ECG : MonoBehaviour
         {
             m_bpmRefreshTime -= m_bpmRefreshCD;
             while(m_history.Count > 0 && Time.time - m_history[0] > m_maxDurationHistory) m_history.RemoveAt(0);
-            if(m_history.Count > 0) Debug.Log(m_history.Count + " / " + (Time.time - m_history[0]));
+            // if(m_history.Count > 0) Debug.Log(m_history.Count + " / " + (Time.time - m_history[0]));
             
             m_bpm = m_computeBPM;
             m_bpmText.text = ((int)math.floor(bpm)).ToString();

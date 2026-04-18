@@ -11,9 +11,9 @@ TagManager:
   - Sound
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Player
+  - DetectPlayer
+  - Nurse
   - 
   - 
   - 
@@ -40,4 +40,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 2453967483
     locked: 0
