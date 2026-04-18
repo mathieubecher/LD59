@@ -1,0 +1,45 @@
+{
+    "name": "InputAction",
+    "maps": [
+        {
+            "name": "Default",
+            "id": "45aaa0ac-1f1c-4c47-a11d-e0f1bc9b1512",
+            "actions": [
+                {
+                    "name": "Bip",
+                    "type": "Button",
+                    "id": "154899fc-14c7-4449-999e-7412fbfd1176",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7410874f-cfc0-44f5-b441-04fd3ea059da",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Bip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a8468209-1788-461b-a4d0-698559058e74",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Bip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
