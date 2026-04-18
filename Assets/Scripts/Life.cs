@@ -13,6 +13,7 @@ public class Life : MonoBehaviour
     
     void Update()
     {
+        if (ECG.totalBit <= 2) return;
         m_life = math.clamp(m_life + m_bpmToLifeProgress.Evaluate(ECG.bpm) * Time.deltaTime, 0f, 1f);
         m_progress.size = new Vector3(m_life, 1f, 1f) * m_background.size;
         m_progress.transform.localPosition = new Vector3(- (1f - m_life)/2 * m_background.size.x, 0f, 0f);

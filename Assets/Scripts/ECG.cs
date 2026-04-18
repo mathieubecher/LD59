@@ -26,6 +26,7 @@ public class ECG : MonoBehaviour
     public delegate void SimpleEvent();
     public static event SimpleEvent OnBip;
     public static float bpm => instance.m_bpm;
+    public static int totalBit = 0;
     #endregion
 
     [SerializeField] private TextMeshPro m_bpmText;
@@ -55,7 +56,7 @@ public class ECG : MonoBehaviour
     private float m_bpmRefreshTime;
     private bool m_bipReceived;
     
-    private float m_computeBPM => m_history.Count <= 1 ? 0f : m_history.Count * 60f / ((m_history.Count < m_maxBipHistory)? Time.time - m_history[0] : (float)m_maxDurationHistory);
+    private float m_computeBPM => m_history.Count <= 1 ? 0f : (m_history.Count - 1) * 60f / (m_history[^1] - m_history[0]);
     private float m_bpm;
     
     private void Awake()
@@ -138,6 +139,7 @@ public class ECG : MonoBehaviour
     private void Bip()
     {
         OnBip?.Invoke();
+        ++totalBit;
         float dist = m_speed * 60f / m_helperBPM;
         m_helper.localPosition = new Vector3((m_currentTrail.transform.localPosition.x + dist) % m_boxLength, 0f);
         
