@@ -10,6 +10,8 @@ public class BPMGauge : MonoBehaviour
 
     private void Update()
     {
+        if (!EventManager.isRunning) return;
+        
         Vector3 pos = m_bpm.localPosition;
         m_bpm.localPosition = new Vector3(math.clamp(ECG.bpm / (float)m_maxBPM, 0f, 1f) * m_size, pos.y, pos.z);
 

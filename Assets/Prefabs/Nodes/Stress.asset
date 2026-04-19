@@ -10,26 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: Start
+  m_Name: Stress
   m_EditorClassIdentifier: Assembly-CSharp::EventNode
-  name: Wake up
+  name: Stress
   icon: {fileID: 0}
   timeline:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 50
+      value: 140
       inSlope: 0
       outSlope: 0
-      tangentMode: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 140
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  transition: 5
+  transition: 3
   safezone:
     serializedVersion: 2
     m_Curve:
@@ -55,5 +64,5 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   transitions:
-  - next: {fileID: 11400000, guid: 62f9059b9a94964449e5010da7bab3a9, type: 2}
+  - next: {fileID: 11400000, guid: 0aaf1442f4a3f1342899cf2b883d2234, type: 2}
     minScore: 0

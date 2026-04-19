@@ -57,7 +57,6 @@ public class ECG : MonoBehaviour
     private float m_bpmRefreshTime;
     private bool m_bipReceived;
     
-    private float m_computeBPM => m_history.Count <= 1 ? 0f : (m_history.Count - 1) * 60f / (m_history[^1] - m_history[0]);
     private float m_bpm;
     
     private void Awake()
@@ -91,7 +90,7 @@ public class ECG : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_bipReceived && m_bipTimer > m_minBipDuration)
+        if (EventManager.isRunning && m_bipReceived && m_bipTimer > m_minBipDuration)
         {
             Bip();
         }
@@ -123,15 +122,26 @@ public class ECG : MonoBehaviour
         m_bpmRefreshTime += Time.fixedDeltaTime;
         if (m_bpmRefreshTime >= m_bpmRefreshCD)
         {
-            m_bpmRefreshTime -= m_bpmRefreshCD;
-            while(m_history.Count > 0 && Time.time - m_history[0] > m_maxDurationHistory) m_history.RemoveAt(0);
-            // if(m_history.Count > 0) Debug.Log(m_history.Count + " / " + (Time.time - m_history[0]));
-            
-            m_bpm = m_computeBPM;
-            m_bpmText.text = ((int)math.floor(bpm)).ToString();
+            RefreshBPM();
         }
     }
-    
+
+    private void RefreshBPM()
+    {
+        m_bpmRefreshTime = 0f;
+        //while(m_history.Count > 0 && Time.time - m_history[0] > m_maxDurationHistory) m_history.RemoveAt(0);
+
+        if (m_history.Count < 2) m_bpm = 0f;
+        else
+        {
+            float currentBPM = (m_history.Count - 1) * 60f / (m_history[^1] - m_history[0]);
+            float estimateBPM = (m_history.Count) * 60f / (Time.time - m_history[0]);
+            m_bpm = math.min(currentBPM, estimateBPM);
+        }
+        
+        m_bpmText.text = ((int)math.floor(bpm)).ToString();
+    }
+
     private void BipReceived()
     {
         m_bipReceived = true;
@@ -140,7 +150,6 @@ public class ECG : MonoBehaviour
     private void Bip()
     {
         OnBip?.Invoke();
-        ++totalBit;
         if (m_drawHelper)
         {
             float dist = m_speed * 60f / m_helperBPM;
@@ -153,6 +162,9 @@ public class ECG : MonoBehaviour
         m_bipTimer = 0f;
         m_history.Add(Time.time);
         if(m_history.Count > m_maxBipHistory) m_history.RemoveAt(0);
+        
+        RefreshBPM();
+        ++totalBit;
     }
     
     private void Clear(Vector3 _newPos)
