@@ -34,7 +34,8 @@ public class ECG : MonoBehaviour
     [SerializeField] private float m_speed;
     [SerializeField] private float m_boxLength = 100f;
     [SerializeField] private float m_boxRefresh = 0.2f;
-    [Header("Helper")]
+    [Header("Helper")] 
+    [SerializeField] private bool m_drawHelper;
     [SerializeField] private Transform m_helper;
     [SerializeField] private int m_helperBPM;
     [Header("History")]
@@ -133,7 +134,6 @@ public class ECG : MonoBehaviour
     
     private void BipReceived()
     {
-        if (GameManager.dead) return;
         m_bipReceived = true;
     }
 
@@ -141,9 +141,13 @@ public class ECG : MonoBehaviour
     {
         OnBip?.Invoke();
         ++totalBit;
-        float dist = m_speed * 60f / m_helperBPM;
-        m_helper.localPosition = new Vector3((m_currentTrail.transform.localPosition.x + dist) % m_boxLength, 0f);
-        m_helper.gameObject.SetActive(true);
+        if (m_drawHelper)
+        {
+            float dist = m_speed * 60f / m_helperBPM;
+            m_helper.localPosition = new Vector3((m_currentTrail.transform.localPosition.x + dist) % m_boxLength, 0f);
+            m_helper.gameObject.SetActive(true);
+        }
+        else m_helper.gameObject.SetActive(false);
         
         m_bipReceived = false;
         m_bipTimer = 0f;
